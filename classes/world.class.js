@@ -4,7 +4,10 @@ class World {
     canvas;
     ctx;   
     keyboard;
-    camera_x = 0; 
+    camera_x = 0;
+    healthBar = new HealthBar;
+    bottleBar = new BottleBar;
+    coinBar = new CoinBar;
     
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -12,6 +15,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
@@ -19,19 +23,34 @@ class World {
     }
 
 
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach(enemy => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.hit();
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            });
+        }, 200);
+    }
+
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
         this.ctx.translate(this.camera_x, 0);
-        
+        //// SPACE FOR MOVING OBJECTS ////
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
-
-        this.ctx.translate(-this.camera_x, 0);
         
+        this.ctx.translate(-this.camera_x, 0);
 
+        //// SPACE FOR FIXED OBJECTS ////
+        this.addToMap(this.healthBar);
+        this.addToMap(this.bottleBar);
+        this.addToMap(this.coinBar);
 
         //draw() gets repeatedly executed
         let self = this;
@@ -48,20 +67,26 @@ class World {
 
     addToMap(mo) {
         if (mo.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0); // x Achse wird um breite des characters nach links geschoben
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
+            this.flipImage(mo);
         }
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-        this.ctx.beginPath();
-        this.ctx.lineWidth = '5';
-        this.ctx.strokeStyle = 'blue';
-        this.ctx.rect(mo.x, mo.y, mo.x + mo.width, mo.y + mo.height);
-        this.ctx.stroke();
+
+        mo.draw(this.ctx);
+        //mo.drawFrame(this.ctx);
+        
         if (mo.otherDirection) {
-            mo.x = mo.x * -1
-            this.ctx.restore();
+            this.flipImageBack(mo);
         }
+    }
+
+    flipImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0); // x Achse wird um breite des characters nach links geschoben
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore();
     }
 }
