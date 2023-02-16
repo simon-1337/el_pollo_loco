@@ -26,7 +26,6 @@ window.addEventListener('keydown', (event) => {
     }
     if (event.keyCode == 68) {
         keyboard.D = true;
-        console.log('test')
     }
 })
 
