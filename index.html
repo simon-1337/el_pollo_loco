@@ -13,6 +13,7 @@
     <script src="classes/moveable-object.class.js"></script>
     <script src="classes/character.class.js"></script>
     <script src="classes/chicken.class.js"></script>
+    <script src="classes/baby-chicken.class.js"></script>
     <script src="classes/cloud.class.js"></script>
     <script src="classes/background-object.class.js"></script>
     <script src="classes/world.class.js"></script>
@@ -20,6 +21,8 @@
     <script src="classes/level.class.js"></script>
     <script src="classes/endboss.class.js"></script>
     <script src="classes/throwable-object.class.js"></script>
+    <script src="classes/start-background.class.js"></script>
+    <script src="classes/game-over-background.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
     
@@ -29,6 +32,11 @@
     <h1>El Pollo Loco</h1>
 
     <canvas id="canvas" width="720" height="480"></canvas>
+
+
+    <button id="start-button" class="button" onclick="initLevel(), world.startGame('start-button');">Start Game</button>
+    <button id="restart-button" class="button restart-button d-none" onclick="restartGame()">Restart Game</button>
+    
 
 
 </body>
