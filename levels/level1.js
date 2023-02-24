@@ -13,6 +13,13 @@ function initLevel() {
         ],
         [
             new Cloud()
+        ],
+        [
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
         ],    
     );
 }

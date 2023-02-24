@@ -80,6 +80,7 @@ class World {
             this.addToMap(this.character);
             this.addObjectsToMap(this.level.enemies);
             this.addObjectsToMap(this.throwableObjects);
+            this.addObjectsToMap(this.level.bottles)
             
             this.ctx.translate(-this.camera_x, 0);
 
@@ -112,7 +113,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        //mo.drawFrame(this.ctx);
+        mo.drawFrame(this.ctx);
         
         if (mo.otherDirection) {
             this.flipImageBack(mo);

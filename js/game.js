@@ -45,6 +45,50 @@ function restartGame() {
 }
 
 
+function checkFullscreen() {
+    if (document.fullscreenElement) {
+        closeFullscreen();
+    } else {
+        let screen = document.getElementById('fullscreen');
+        openFullscreen(screen);
+    }
+}
+
+
+// function changeToOpenText() {
+//     document.getElementById('fullscreen-text').innerHTML = 'Press &lt;ENTER&gt; to play in Fullscreen mode';
+// }
+
+
+// function changeToExitText() {
+//     document.getElementById('fullscreen-text').innerHTML = 'Press &lt;ENTER&gt; or &lt;ESC&gt; to exit Fullscreen mode';
+// }
+
+
+/* View in fullscreen */
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  }
+
+
+/* Close fullscreen */
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+  }  
+
+
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {
         keyboard.RIGHT = true;
@@ -63,6 +107,9 @@ window.addEventListener('keydown', (event) => {
     }
     if (event.keyCode == 68) {
         keyboard.D = true;
+    }
+    if (event.keyCode == 13) {
+        checkFullscreen();
     }
 })
 

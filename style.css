@@ -3,17 +3,9 @@
     src: url('/fonts/zabars.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 } 
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url(img/bg.png);
-    background-size: cover;
-    height: 100vh;
-    margin: 0;
-    background-position: center;
+body {    
     font-family: 'zabras', Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
 canvas {
@@ -28,6 +20,27 @@ h1 {
     font-weight: lighter;
     color: #6d2010;
     letter-spacing: 3px;
+}
+
+h2 {
+    font-weight: lighter;
+    color: #6d2010;
+    letter-spacing: 3px;
+    margin-block-start: 24px;
+    font-size: 28px;
+}
+
+#fullscreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url(img/bg.png);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    background-position: center;
 }
 
 .button {
