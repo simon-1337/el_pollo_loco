@@ -44,21 +44,38 @@ class World {
 
     //checks is key to throw object is pressed
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.character.bottleStorageNotEmpty()) {
             let bottle = new ThrowableObject(this.character);
-            this.throwableObjects.push(bottle)
+            this.throwableObjects.push(bottle);
+            this.character.bottleStorage--;
+            this.bottleBar.setPercentage(this.character.bottleStorage);
         }
     }
 
     checkCollisions() {
         if (this.gameStarted) {
-            this.level.enemies.forEach(enemy => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
-                }
-            });
+            this.checkCollisionsEnemies();
+            this.checkCollisionsBottlesToCollect();
         }
+    }
+
+    checkCollisionsEnemies() {
+        this.level.enemies.forEach(enemy => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.healthBar.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+    checkCollisionsBottlesToCollect() {
+        this.level.bottles.forEach((bottle, index) => {
+            if ( this.character.isColliding(bottle) && this.character.bottleStorageNotFull()) {
+                this.level.bottles.splice(index, 1);
+                this.character.bottleStorage++;
+                this.bottleBar.setPercentage(this.character.bottleStorage);
+            }
+        })
     }
 
     checkGameOver() {

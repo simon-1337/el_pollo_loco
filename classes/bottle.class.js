@@ -7,6 +7,12 @@ class Bottle extends CollectableObject {
         'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
         'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ]
+    offset = {
+        left: 40,
+        top: 0,
+        right: 25,
+        bottom: 0
+    }
 
     constructor() {
         super();

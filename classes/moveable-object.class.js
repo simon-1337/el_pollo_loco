@@ -53,13 +53,6 @@ class MoveableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    offset = {
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0
-    }
-
     playAnimation(images) {
         let i = this.currentImage % images.length; // if length = 6: Rest = 0 -> 1 -> ... -> 5 -> 0 -> 1 -> ... 
         let path = images[i];

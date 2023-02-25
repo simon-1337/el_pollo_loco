@@ -10,6 +10,7 @@ class Character extends MoveableObject {
         bottom: 30
     }
     idle = false;
+    bottleStorage = 0;
     idleTime = 0;
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -98,6 +99,13 @@ class Character extends MoveableObject {
         this.idle = false;
     }
 
+    bottleStorageNotFull() {
+        return this.bottleStorage < 5;
+    }
+
+    bottleStorageNotEmpty() {
+        return this.bottleStorage > 0;
+    }
 
     animate() {
 

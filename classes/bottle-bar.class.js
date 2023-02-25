@@ -17,4 +17,8 @@ class BottleBar extends DrawableObject {
         this.height = 40;
         this.img = this.imageCache[this.IMAGES_BOTTLE[0]];
     }
+
+    setPercentage(numberOfBottles) {
+        this.img = this.imageCache[this.IMAGES_BOTTLE[numberOfBottles]];
+    }
 }
