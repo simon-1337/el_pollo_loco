@@ -4,11 +4,13 @@ class Level {
     backgroundObjects = [];
     level_end_x = 400;
     bottles;
+    coins;
 
-    constructor(enemies, clouds, bottles) {
+    constructor(enemies, clouds, bottles, coins) {
         this.enemies = enemies;
         this.clouds = clouds;
-        this.bottles = bottles
+        this.bottles = bottles;
+        this.coins = coins
         this.addBackgroundObjects();
     }
 

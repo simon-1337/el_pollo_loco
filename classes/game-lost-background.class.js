@@ -1,4 +1,4 @@
-class GameOverBackground extends DrawableObject {
+class GameLostBackground extends DrawableObject {
     width = 720;
     height = 480;
     y = 0;

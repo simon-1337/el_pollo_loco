@@ -15,7 +15,7 @@ function setStoppableInterval(fn, time) {
 }
 
 
-function gameOver() {
+function gameLost() {
     stopIntevals();
     displayRestartButton();
     //evtl stop audio

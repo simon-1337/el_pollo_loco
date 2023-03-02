@@ -17,4 +17,8 @@ class CoinBar extends DrawableObject {
         this.height = 40;
         this.img = this.imageCache[this.IMAGES_COIN[0]];
     }
+
+    setPercentage(numberOfCoins) {
+        this.img = this.imageCache[this.IMAGES_COIN[numberOfCoins]];
+    }
 }

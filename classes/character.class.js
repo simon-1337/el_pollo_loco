@@ -5,12 +5,13 @@ class Character extends MoveableObject {
     speed = 10;
     offset = {
         left: 40,
-        top: 120,
+        top: 60,
         right: 30,
         bottom: 30
     }
     idle = false;
     bottleStorage = 0;
+    coinStorage = 0;
     idleTime = 0;
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',

@@ -5,4 +5,5 @@ class CollectableObject extends DrawableObject {
         super();
         this.x = 350 + Math.random() * 2000;
     }
+
 }
