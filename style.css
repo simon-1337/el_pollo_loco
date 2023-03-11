@@ -11,6 +11,7 @@ body {
 canvas {
     background-color: black;
     border-radius: 9px;
+    display: block;
 }
 
 h1 {
@@ -28,6 +29,7 @@ h2 {
     letter-spacing: 3px;
     margin-block-start: 24px;
     font-size: 28px;
+    text-align: center;
 }
 
 #fullscreen {
@@ -73,3 +75,42 @@ h2 {
 .dark-overlay {
     filter: brightness(0.7);
 }
+
+
+
+@media only screen and (max-width: 720px){
+    canvas {
+        width: 100%;
+        border-radius: 0;
+    }
+    
+    .headline {
+        display: none;
+    }
+
+    #fullscreen-text {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 620px){
+    .headline {
+        display: none;
+    }
+
+    #fullscreen-text {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 480px){
+    canvas {
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    #fullscreen {
+        justify-content: flex-start;
+    }
+}
+
