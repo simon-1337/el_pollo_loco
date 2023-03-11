@@ -24,9 +24,12 @@
     <script src="classes/coin.class.js"></script>
     <script src="classes/level.class.js"></script>
     <script src="classes/endboss.class.js"></script>
+    <script src="classes/endboss-bar.class.js"></script>
+    <script src="classes/endboss-icon.js"></script>
     <script src="classes/throwable-object.class.js"></script>
     <script src="classes/start-background.class.js"></script>
     <script src="classes/game-lost-background.class.js"></script>
+    <script src="classes/game-won-background.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
     
@@ -38,7 +41,7 @@
         <h1>El Pollo Loco</h1>
         <canvas id="canvas" width="720" height="480"></canvas>
         <button id="start-button" class="button" onclick="initLevel(), world.startGame('start-button');">Start Game</button>
-        <button id="restart-button" class="button restart-button d-none" onclick="restartGame()">Restart Game</button>
+        <button id="restart-button" class="button restart-button d-none" onclick="restartGame()">Play Again</button>
         <h2 id="fullscreen-text">Press &lt;ENTER&gt; to play in Fullscreen mode</h2>
     </div>
 

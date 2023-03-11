@@ -6,6 +6,7 @@ class DrawableObject {
     y = 280; 
     height = 150;
     width = 100; 
+    otherDirection = false;
     offset = {
         left: 0,
         top: 0,

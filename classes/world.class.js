@@ -8,11 +8,17 @@ class World {
     healthBar = new HealthBar;
     bottleBar = new BottleBar;
     coinBar = new CoinBar;
+    endbossBar = new EndbossBar;
+    endbossIcon = new EndbossIcon;
     throwableObjects = [];
     gameStarted = false;
     gameLost = false;
+    gameWon = false;
     startBackground = new StartBackground;
     gameLostBackground = new GameLostBackground;
+    gameWonBackground = new GameWonBackground;
+    endboss;
+    
     
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -32,11 +38,13 @@ class World {
         this.gameStarted = true;
         this.character.animate();
         this.level = level1;
+        this.endboss = this.level.enemies[this.level.enemies.length - 1];
     }
 
     run() {
         setInterval(() => {
             this.checkGameLost();
+            this.checkGameWon();
             this.checkCollisions();
         }, 1000/60);
         setInterval(() => {
@@ -108,6 +116,9 @@ class World {
                     this.damageEnemy(enemy, index);
                     bottle.splashBottle(bottle);
                     this.removeBottle(index);
+                    if (enemy instanceof Endboss) {
+                        this.endbossBar.setPercentage(enemy.energy);
+                    }
                 }
             })
         })
@@ -122,14 +133,37 @@ class World {
     checkGameLost() {
         if (this.character.isDead()) {   //Later also ENDBOSS
             setTimeout(() => {
-                gameLost();
+                gameOver();
                 this.gameLost = true;
             }, 500);
         }
     }
 
+    checkGameWon() {
+        if (this.gameStarted) {
+            if (this.endbossIsDead()) { 
+               setTimeout(() => {
+                gameOver();
+                this.gameWon = true;
+                stopAllIntervals();
+               }, 750);   
+           }    
+        }
+    }
+
+    endbossIsDead() {
+        let bool = false;
+        this.level.enemies.forEach(enemy => {
+            if (enemy instanceof Endboss && enemy.isDead()) {
+                bool = true;
+            }
+        });
+        return bool;
+    }
+
     damageEnemy(enemy, index) {
         enemy.energy -= 100;
+        enemy.lastHit = new Date().getTime();
         if (enemy.energy <= 0 && !(enemy instanceof Endboss)) {
             setTimeout(() => {
                 this.level.enemies.splice(index, 1);
@@ -156,8 +190,15 @@ class World {
             this.addToMap(this.healthBar);
             this.addToMap(this.bottleBar);
             this.addToMap(this.coinBar);
+            if (this.level.enemies[this.level.enemies.length - 1].hadFirstContact) {
+                this.addToMap(this.endbossBar);
+                this.addToMap(this.endbossIcon);
+            }
             if (this.gameLost) {
                 this.addToMap(this.gameLostBackground);
+            }
+            if (this.gameWon) {
+                this.addToMap(this.gameWonBackground);
             }
         } else {
             this.addToMap(this.startBackground)
