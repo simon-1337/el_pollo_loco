@@ -48,12 +48,11 @@ h2 {
 .button {
     border-radius: 9px;
     padding: 10px 20px;
-    background-color: #FFCF15;
+    background-color: #ffc115;
     border: none;
     margin: 10px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: -58px;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
     font-size: 25px;
@@ -64,19 +63,65 @@ h2 {
     background-color: #FFA400;
 }
 
-.restart-button {
-    margin-top: -63px;
-}
-
 .d-none {
     display: none;
+}
+
+.absolute {
+    position: absolute;
 }
 
 .dark-overlay {
     filter: brightness(0.7);
 }
 
+.flex {
+    display: flex;
+}
 
+.relative {
+    position: relative;
+}
+
+.hud {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lower-hud {
+    padding: 0 48px 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.hud img {
+    height: 32px;
+    width: 28px;
+    border-radius: 100%;
+    background-color: #ffc115;
+    padding: 8px;
+    border: 2px solid #6d2010;
+}
+
+.lower-left-hud {
+    display: flex;
+    gap: 24px;
+    display: none;
+}
+
+.lower-right-hud {
+    display: flex;
+    gap: 24px;
+    display: none;
+}
+
+.lower-right-hud img {
+    height: 28px;
+    width: 32px;
+}
 
 @media only screen and (max-width: 720px){
     canvas {
@@ -114,3 +159,16 @@ h2 {
     }
 }
 
+@media (pointer: coarse) {  /*ONLY ON MOBILE DEVICES*/
+    .lower-right-hud {
+        display: flex;
+    }
+
+    .lower-left-hud {
+        display: flex;
+    }
+
+    .lower-hud {
+        justify-content: space-between;
+    }
+}

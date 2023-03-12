@@ -39,9 +39,26 @@
 
     <div id="fullscreen">
         <h1 class="headline">El Pollo Loco</h1>
-        <canvas id="canvas" width="720" height="480"></canvas>
-        <button id="start-button" class="button" onclick="initLevel(), world.startGame('start-button');">Start Game</button>
-        <button id="restart-button" class="button restart-button d-none" onclick="restartGame()">Play Again</button>
+        <div class="relative"> <!--GAME WRAPPER-->
+            <div class="hud absolute">
+                <div class="upper-hud flex">
+                    TEST
+                </div>
+                <div class="lower-hud flex">
+                    <div class="lower-left-hud">
+                        <img src="img/arrow-left.png">
+                        <img src="img/arrow-right.png">
+                    </div>
+                    <button id="start-button" class="button" onclick="initLevel(), world.startGame('start-button');">Start Game</button>
+                    <button id="restart-button" class="button d-none" onclick="restartGame()">Play Again</button>
+                    <div class="lower-right-hud">
+                        <img src="img/arrow-up.png">
+                        <img src="img/arrow-throw.png">
+                    </div>
+                </div>
+            </div>
+            <canvas id="canvas" width="720" height="480"></canvas>
+        </div>
         <h2 id="fullscreen-text">Press &lt;ENTER&gt; to OPEN/CLOSE Fullscreen mode</h2>
     </div>
 
