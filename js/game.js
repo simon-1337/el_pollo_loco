@@ -2,7 +2,10 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let allIntervals = [];
- 
+
+/**
+ * This function initiate the world and starts the Eventlistener to know when buttons are touched on a mobile device
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
@@ -10,6 +13,12 @@ function init() {
 }
 
 
+/**
+ * This function is used to set an interval which can be stopped
+ * 
+ * @param {*} fn 
+ * @param {*} time 
+ */
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     allIntervals.push(id);
@@ -17,8 +26,8 @@ function setStoppableInterval(fn, time) {
 
 
 function gameOver() {
-    stopIntevals();
     displayRestartButton();
+    displayQuestionMarkButton();
     //evtl stop audio
 }
 
@@ -28,13 +37,42 @@ function displayRestartButton() {
 }
 
 
-function stopIntevals() {
+function displayQuestionMarkButton() {
+    document.getElementById('question-mark-btn').classList.remove('d-none');
+}
+
+
+function displayHelp() {
+    document.getElementById('help-screen').classList.remove('d-none');
+}
+
+
+function closeHelp() {
+    document.getElementById('help-screen').classList.add('d-none');
+}
+
+
+function stopIntervals() {
     allIntervals.forEach(clearInterval);
 }
 
 
 function stopAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
+
+function closeLoadingScreen() {
+    document.getElementById('loading-screen').classList.add('d-none');
+    if (world.gameStarted) {
+        world.loaded = true;
+    }
+}
+
+
+function displayLoadingScreen() {
+    console.log('loadingscreen opened')
+    document.getElementById('loading-screen').classList.remove('d-none');
 }
 
 
@@ -46,14 +84,14 @@ function restartGame() {
 }
 
 
-function checkFullscreen() {
-    if (document.fullscreenElement) {
-        closeFullscreen();
-    } else {
-        let screen = document.getElementById('fullscreen');
-        openFullscreen(screen);
-    }
-}
+// function checkFullscreen() {
+//     if (document.fullscreenElement) {
+//         closeFullscreen();
+//     } else {
+//         let screen = document.getElementById('fullscreen');
+//         openFullscreen(screen);
+//     }
+// }
 
 
 // function changeToOpenText() {
@@ -67,27 +105,27 @@ function checkFullscreen() {
 
 
 /* View in fullscreen */
-function openFullscreen(elem) {
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-      elem.msRequestFullscreen();
-    }
-  }
+// function openFullscreen(elem) {
+//     if (elem.requestFullscreen) {
+//       elem.requestFullscreen();
+//     } else if (elem.webkitRequestFullscreen) { /* Safari */
+//       elem.webkitRequestFullscreen();
+//     } else if (elem.msRequestFullscreen) { /* IE11 */
+//       elem.msRequestFullscreen();
+//     }
+//   }
 
 
-/* Close fullscreen */
-function closeFullscreen() {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
-      document.msExitFullscreen();
-    }
-  }  
+// /* Close fullscreen */
+// function closeFullscreen() {
+//     if (document.exitFullscreen) {
+//       document.exitFullscreen();
+//     } else if (document.webkitExitFullscreen) { /* Safari */
+//       document.webkitExitFullscreen();
+//     } else if (document.msExitFullscreen) { /* IE11 */
+//       document.msExitFullscreen();
+//     }
+//   }  
 
 
 function touchEventListener() {

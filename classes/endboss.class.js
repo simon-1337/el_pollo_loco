@@ -11,6 +11,8 @@ class Endboss extends MoveableObject {
         right: 100,
         bottom: 200
     };
+    speed = 10;
+    x = 2700;
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -35,27 +37,39 @@ class Endboss extends MoveableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    IMAGES_WALKING = [
+        'img/4_enemie_boss_chicken/1_walk/G1.png',
+        'img/4_enemie_boss_chicken/1_walk/G2.png',
+        'img/4_enemie_boss_chicken/1_walk/G3.png',
+        'img/4_enemie_boss_chicken/1_walk/G4.png',
+    ];
+
+    IMAGES_ATTACKING = [
+        'img/4_enemie_boss_chicken/3_attack/G13.png',
+        'img/4_enemie_boss_chicken/3_attack/G14.png',
+        'img/4_enemie_boss_chicken/3_attack/G15.png',
+        'img/4_enemie_boss_chicken/3_attack/G16.png',
+        'img/4_enemie_boss_chicken/3_attack/G17.png',
+        'img/4_enemie_boss_chicken/3_attack/G18.png',
+        'img/4_enemie_boss_chicken/3_attack/G19.png',
+        'img/4_enemie_boss_chicken/3_attack/G20.png',
+    ];
+
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        this.x = 2700;
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACKING);
         this.animate();
     }
 
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT);
-            if (world.character.x > 2120 && !this.hadFirstContact) {
+            if (world.character.x > 2150 && !this.hadFirstContact) {
                 this.hadFirstContact = true;
-            }
-            if (world.character.x > 2300) {
-                //ATTACK
-            }
-            if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
             }
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -63,7 +77,29 @@ class Endboss extends MoveableObject {
                 this.y = 100;
                 return;
             }
-
+            else if (!this.hadFirstContact || world.character.isDead()) {
+                this.playAnimation(this.IMAGES_ALERT);
+            }
+            else if (this.hadFirstContact) {
+                if (!this.characterRigthFromEndboss()) {
+                    this.otherDirection = false;
+                    this.moveLeft();
+                }
+                else if (this.characterRigthFromEndboss()) {
+                    this.otherDirection = true;
+                    this.moveRight();
+                }
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+            else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
         }, 120);
     }
+
+    characterRigthFromEndboss() {
+        return (world.character.x - this.width / 2) > this.x;
+    }
+
 }
+

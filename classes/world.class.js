@@ -17,7 +17,7 @@ class World {
     startBackground = new StartBackground;
     gameLostBackground = new GameLostBackground;
     gameWonBackground = new GameWonBackground;
-    endboss;
+    loaded = false;
     
     
     constructor(canvas) {
@@ -35,6 +35,7 @@ class World {
 
     startGame(buttonID) {
         document.getElementById(buttonID).classList.add('d-none');
+        document.getElementById('question-mark-btn').classList.add('d-none');
         this.gameStarted = true;
         this.character.animate();
         this.level = level1;
@@ -131,7 +132,8 @@ class World {
     }
 
     checkGameLost() {
-        if (this.character.isDead()) {   //Later also ENDBOSS
+        if (this.character.isDead()) {
+            stopIntervals()
             setTimeout(() => {
                 gameOver();
                 this.gameLost = true;
@@ -144,6 +146,7 @@ class World {
             if (this.endbossIsDead()) { 
                setTimeout(() => {
                 gameOver();
+                stopIntervals()
                 this.gameWon = true;
                 stopAllIntervals();
                }, 750);   

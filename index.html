@@ -39,20 +39,43 @@
     <div class="screen-to-small">
         Please play on a bigger screen or turn your Smartphone!
     </div>
+    <div id="loading-screen" class="loading-screen">
+        <img src="img/6_salsa_bottle/salsa_bottle.png">
+    </div>
     <div id="fullscreen">
         <h1 class="headline">El Pollo Loco</h1>
         <div class="relative"> <!--GAME WRAPPER-->
+            <div id="help-screen" class="d-none">
+                <button class="close-btn" onclick="closeHelp()">X</button>
+                <div class="help-screen-child">
+                    <div class="images">
+                        <img src="img/arrow-left.png">
+                        <img src="img/arrow-right.png">
+                    </div>
+                    <span class="help-screen-text">Move Character Left and Right</span>
+                </div>
+                <div class="help-screen-child">
+                    <img class="space-img" src="img/space.png">
+                    <span class="help-screen-text">To jump to avoid damge and kill chickens</span>
+                </div>
+                <div class="help-screen-child">
+                    <div class="help-key">D</div>
+                    <span class="help-screen-text">Throw bottles at enemies to kill them</span>
+                </div>
+                <span class="attention-help-text">ATTENTION: YOU WILL NEED MOST OF THE BOTTLES TO KILL BABA CHICKEN!</span>
+                
+            </div>
             <div class="hud absolute">
                 <div class="upper-hud flex">
-                    TEST
+                    <img id="question-mark-btn" onclick="displayHelp()" src="img/question-mark.png">
                 </div>
                 <div class="lower-hud flex">
                     <div class="lower-left-hud">
                         <img id="btn-left" src="img/arrow-left.png">
                         <img id="btn-right" src="img/arrow-right.png">
                     </div>
-                    <button id="start-button" class="button" onclick="initLevel(), world.startGame('start-button');">Start Game</button>
-                    <button id="restart-button" class="button d-none" onclick="restartGame()">Play Again</button>
+                    <button id="start-button" class="button" onclick="displayLoadingScreen(), initLevel(), world.startGame('start-button');">Start Game</button>
+                    <button id="restart-button" class="button d-none" onclick="displayLoadingScreen(), restartGame()">Play Again</button>
                     <div class="lower-right-hud">
                         <img id="btn-jump" src="img/arrow-up.png">
                         <img id="btn-throw" src="img/arrow-throw.png">
@@ -61,7 +84,7 @@
             </div>
             <canvas id="canvas" width="720" height="480"></canvas>
         </div>
-        <h2 id="fullscreen-text">Press &lt;ENTER&gt; to OPEN/CLOSE Fullscreen mode</h2>
+        <!-- <h2 id="fullscreen-text">Press &lt;ENTER&gt; to OPEN/CLOSE Fullscreen mode</h2> -->
     </div>
 
 
