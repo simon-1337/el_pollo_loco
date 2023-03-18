@@ -502,6 +502,11 @@ h2 {
 @media (pointer: coarse) and (orientation:landscape) {
     canvas {
         height: 100vh !important;
+        border-radius: 0;
+    }
+
+    .headline {
+        display: none;
     }
 }
 
