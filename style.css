@@ -499,6 +499,12 @@ h2 {
     }
 }
 
+@media (pointer: coarse) and (orientation:landscape) {
+    canvas {
+        height: 100vh !important;
+    }
+}
+
 
 
 @keyframes rotate {
