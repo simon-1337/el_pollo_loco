@@ -10,6 +10,7 @@ class Coin extends CollectableObject {
         bottom: 100
     }
 
+    
     constructor() {
         super().loadImage(this.img);
         this.y = 70 + Math.random()*150;

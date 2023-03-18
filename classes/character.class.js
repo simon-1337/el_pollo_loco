@@ -73,6 +73,9 @@ class Character extends MoveableObject {
     ];
     world;
     walking_sound = new Audio('audio/walking.mp3');
+    dying_sound = new Audio('audio/player-dies.mp3');
+    dyingSoundPlayed = false;
+    hurting_sound = new Audio('audio/player-hurt.mp3');
 
 
     constructor() {
@@ -86,80 +89,219 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
     }
+  
     
+    /**
+     * This function is used to set the speed of the Y Axis to 30 and therfore jump with the Character.
+     */
     jump() {
         this.speedY = 30;
     }
 
+
+    /**
+     * This function gets executed when an enemy hits the character and reduces the energy by one.
+     */
+    hit() {
+        this.energy -= 1;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+
+    /**
+     * This function is used to check if the character is already standing still for a longer time.
+     * 
+     * @returns a condition that is true if the idleTime is higher than 50.
+     */
     longIdleTime() {
         return this.idleTime > 50;
     }
 
+
+    /**
+     * This function resets the values necessary for the idle, when the character is moved.
+     */
     resetIdleValues() {
         this.idleTime = 0;
         this.idle = false;
     }
 
+
+    /**
+     * This function checks if the bottle storage is not full yet.
+     * 
+     * @returns a condition checking if the number in the variable bottleStorage is smaller than 5.
+     */
     bottleStorageNotFull() {
         return this.bottleStorage < 5;
     }
 
+
+    /**
+     * This function checks if the bottle storage is not empty.
+     * 
+     * @returns a condition checking if the number in the variable bottleStorage is higher than 0.
+     */
     bottleStorageNotEmpty() {
         return this.bottleStorage > 0;
     }
 
+
+    /**
+     * This function is used to pause the walking sounds of the character
+     */
+    pauseSounds() {
+        this.walking_sound.pause();
+    }
+
+
+    /**
+     * This function is used to play the dying sound. However, only when it is the first time.
+     * After the first time the dyingSoundPlayed Boolean is set to true and therefore the sound is not played in a loop.
+     */
+    playDyingSound() {
+        if (!this.dyingSoundPlayed) {
+            this.dying_sound.play();
+            setTimeout(() => {
+                this.dying_sound.pause();
+            }, 750);
+            this.dyingSoundPlayed = true;
+        }
+    }
+
+
+    /**
+     * This function is used to animate the character
+     */
     animate() {
-
         setStoppableInterval(() => {
-            this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.walking_sound.play();
-                this.resetIdleValues();
-            }
-
-            if (this.world.keyboard.LEFT && this.x > -719) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.walking_sound.play();
-                this.resetIdleValues();
-            }
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-                this.resetIdleValues();
-            }
-
-            if (this.world.keyboard.D) {
-                this.resetIdleValues();
-            }
-            
-            else {
-                this.idle = true;
-            }
-
+            this.pauseSounds();
+            this.characterKeyActions();
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
 
         setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.y += 20;
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);   
-            } else if (this.idle) {
-                this.idleTime++;
-                if (this.longIdleTime()) {
-                    this.playAnimation(this.IMAGES_LONG_IDLE);
-                } else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
-            }     
+            this.animateCharacterMovement();  
         }, 50);
     }
+
+
+    /**
+     * This function is responsible to perform the actions of the character depending on the key that are pressed.
+     */
+    characterKeyActions() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveCharacterRight();
+        } 
+        if (this.world.keyboard.LEFT && this.x > -719) {
+            this.moveCharacterLeft();
+        }
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+            this.resetIdleValues();
+        }
+        if (this.world.keyboard.D) {
+            this.resetIdleValues();
+        }
+        else {
+            this.idle = true;
+        }
+    }
+
+
+    /**
+     * This function is used to move the character to the right
+     */
+    moveCharacterRight() {
+        this.moveRight();
+        this.otherDirection = false;
+        this.walking_sound.play();
+        this.resetIdleValues();
+    }
+
+
+    /**
+     * This function is used to move the character to the left
+     */
+    moveCharacterLeft() {
+        this.moveLeft();
+        this.otherDirection = true;
+        this.walking_sound.play();
+        this.resetIdleValues();
+    }
+
+
+    /**
+     * This function is used to animate the characters movements (also when hurted or dead)
+     */
+    animateCharacterMovement() {
+        if (this.isDead()) {
+            this.animateCharacterDeath();
+        } else if (this.isHurt()) {
+            this.animateCharacterHurt();
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.characterIsWalking()) {
+            this.playAnimation(this.IMAGES_WALKING);   
+        } else if (this.characterIsStandingStill) {
+            this.animateIdleness();
+        }   
+    }
+
+
+    /**
+     * This function is used for the animation when the player died
+     */
+    animateCharacterDeath() {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.playDyingSound();
+        this.y += 20;
+    }
+
+
+    /**
+     * This function is responsible for the animation when the character is hurted 
+     */
+    animateCharacterHurt() {
+        this.playAnimation(this.IMAGES_HURT);
+        this.hurting_sound.play();
+    }
+
+
+    /**
+     * This function is used to check if the character is walking (either left or right)
+     * 
+     * @returns A condition if the key to move left or the key to move right is pressed
+     */
+    characterIsWalking() {
+        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+    }
+
+
+    /**
+     * This function is responsible to check if the character is standing still (not moving)
+     * 
+     * @returns the Boolean value stored in the variable idle
+     */
+    characterIsStandingStill() {
+        return this.idle;
+    }
+ 
+    
+    /**
+     * This functions task is to play the animation when the character is standing still
+     */
+    animateIdleness() {
+        this.idleTime++;
+        if (this.longIdleTime()) {
+            this.playAnimation(this.IMAGES_LONG_IDLE);
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }
 }
+

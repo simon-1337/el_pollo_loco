@@ -8,6 +8,7 @@ class CoinBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
     ]
 
+
     constructor() {
         super();
         this.loadImages(this.IMAGES_COIN);
@@ -18,6 +19,12 @@ class CoinBar extends DrawableObject {
         this.img = this.imageCache[this.IMAGES_COIN[0]];
     }
 
+    
+    /**
+     * This function is used to choose the correct Image for displaying how many coins have been collected
+     * 
+     * @param {int} numberOfCoins - An integer representing how many coins a player collected
+     */
     setPercentage(numberOfCoins) {
         this.img = this.imageCache[this.IMAGES_COIN[numberOfCoins]];
     }

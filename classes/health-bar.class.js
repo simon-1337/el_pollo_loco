@@ -9,6 +9,7 @@ class HealthBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
     ]
 
+
     constructor() {
         super();
         this.loadImages(this.IMAGES_HEALTH);
@@ -19,12 +20,25 @@ class HealthBar extends DrawableObject {
         this.setPercentage(100);
     }
 
+
+    /**
+     * This function is used to set the percentage of the health bar for the character,
+     * and to display the correct healthbar based on this percentage
+     * 
+     * @param {Int} percentage - The percentage of the healthbar 
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let imagePath = this.IMAGES_HEALTH[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
     }
 
+    
+    /**
+     * This Function is used to get the index of the image that should be displayed based on the percentage
+     * 
+     * @returns An integer indicating the position of the image in the IMAGES_HEALTH Array
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;

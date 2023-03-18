@@ -14,6 +14,10 @@ class Level {
         this.addBackgroundObjects();
     }
 
+    
+    /**
+     * This function is used to add the layers of the background image to the backgroundObjects array.
+     */
     addBackgroundObjects() {
         for (let i = -2; i < 6; i += 2) {
             this.backgroundObjects.push(new BackgroundObject('img/5_background/layers/air.png', 719 * i));

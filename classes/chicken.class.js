@@ -9,6 +9,7 @@ class Chicken extends MoveableObject{
     ]
     IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
 
+
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -17,13 +18,32 @@ class Chicken extends MoveableObject{
         this.animate();
     }
 
+
+    /**
+     * This function is used to animate the Chickens
+     */
     animate() {
+        this.animateMovementOnXAxis()
+        this.animateChicken()
+    }
+
+
+    /**
+     * This function is responsible for moving the Chickens on the x-Axis
+     */
+    animateMovementOnXAxis() {
         setInterval(() => {
             if (!this.isDead()) {
                 this.moveLeft();
             }   
         }, 1000 / 60);
-            
+    }
+
+    
+    /**
+     * This function is responsible for animate the Chickens Walking and display the dead Chicken if it died
+     */
+    animateChicken() {
         setInterval(() => {
             if (this.isDead()) {
                 this.loadImage('img/3_enemies_chicken/chicken_normal/2_dead/dead.png')

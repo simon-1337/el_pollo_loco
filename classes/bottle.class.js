@@ -14,12 +14,14 @@ class Bottle extends CollectableObject {
         bottom: 0
     }
 
+
     constructor() {
         super();
         this.selectImage();
         this.loadImage(this.img)
     }
 
+    
     /**
      * This function selects the image of the created object.
      * It is either the one at index 0 or the one at index 1 in the IMAGES array

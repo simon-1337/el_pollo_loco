@@ -67,7 +67,9 @@
             </div>
             <div class="hud absolute">
                 <div class="upper-hud flex">
-                    <img id="question-mark-btn" onclick="displayHelp()" src="img/question-mark.png">
+                    <img class="upper-hud-btn" id="mute-btn" onclick="mute()" src="img/speaker.png">
+                    <img class="upper-hud-btn d-none" id="unmute-btn" onclick="unmute()" src="img/mute.png">
+                    <img class="upper-hud-btn" id="question-mark-btn" onclick="displayHelp()" src="img/question-mark.png">
                 </div>
                 <div class="lower-hud flex">
                     <div class="lower-left-hud">
@@ -75,7 +77,7 @@
                         <img id="btn-right" src="img/arrow-right.png">
                     </div>
                     <button id="start-button" class="button" onclick="displayLoadingScreen(), initLevel(), world.startGame('start-button');">Start Game</button>
-                    <button id="restart-button" class="button d-none" onclick="displayLoadingScreen(), restartGame()">Play Again</button>
+                    <button id="restart-button" class="button d-none" onclick="displayLoadingScreen(), world.pauseMusic(), restartGame()">Play Again</button>
                     <div class="lower-right-hud">
                         <img id="btn-jump" src="img/arrow-up.png">
                         <img id="btn-throw" src="img/arrow-throw.png">
