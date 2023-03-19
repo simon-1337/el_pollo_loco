@@ -23,6 +23,7 @@ class World {
     collect_bottle_sound = new Audio ('audio/bottle-collect.mp3');
     jump_on_enemy_sound = new Audio ('audio/hit.mp3');
     bottle_crashes = new Audio ('audio/bottle-crashes.mp3');
+    lastThrow = 0;
     
     
     constructor(canvas) {
@@ -129,10 +130,8 @@ class World {
             this.checkGameLost();
             this.checkGameWon();
             this.checkCollisions();
-        }, 1000/60);
-        setInterval(() => {
             this.checkThrowObjects(); 
-        }, 150);
+        }, 1000/60);
     }
 
 
@@ -140,11 +139,26 @@ class World {
      * This function is used to throw the bottles
      */
     checkThrowObjects() {
-        if (this.keyboard.D && this.character.bottleStorageNotEmpty()) {
+        if (this.keyboard.D && this.character.bottleStorageNotEmpty() && this.readyToThrowAgain()) {
             let bottle = new ThrowableObject(this.character);
             this.throwableObjects.push(bottle);
             this.character.bottleStorage--;
             this.bottleBar.setPercentage(this.character.bottleStorage);
+        }
+    }
+
+
+    /**
+     * This function is used to check if the time passed since last throwing a bottle is big enough,
+     * and setting the lastThrow to the current timestamp if this is the case 
+     * 
+     * @returns A Boolean value
+     */
+    readyToThrowAgain() {
+        let timePassed = new Date().getTime() - this.lastThrow;
+        if (timePassed > 1000) {
+            this.lastThrow = new Date().getTime();
+            return true;
         }
     }
 

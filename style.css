@@ -502,11 +502,16 @@ h2 {
 @media (pointer: coarse) and (orientation:landscape) {
     canvas {
         height: 100vh !important;
+        width: 100% !important;
         border-radius: 0;
     }
 
+    .game-wrapper {
+        width: 100%;
+    }
+
     .headline {
-        display: none;
+        display: noned;
     }
 }
 

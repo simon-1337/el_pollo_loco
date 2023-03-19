@@ -148,48 +148,48 @@ function displaySoundButton() {
     document.getElementById('unmute-btn').classList.add('d-none');
 }
 
-// function checkFullscreen() {
-//     if (document.fullscreenElement) {
-//         closeFullscreen();
-//     } else {
-//         let screen = document.getElementById('fullscreen');
-//         openFullscreen(screen);
-//     }
-// }
+
+/**
+ * This function is used to check if the screen is in fullscreen mode or not
+ */
+function checkFullscreen() {
+    if (document.fullscreenElement) {
+        closeFullscreen();     
+    } else {
+        let screen = document.getElementById('fullscreen');
+        openFullscreen(screen);
+    }
+}
 
 
-// function changeToOpenText() {
-//     document.getElementById('fullscreen-text').innerHTML = 'Press &lt;ENTER&gt; to play in Fullscreen mode';
-// }
+/**
+ * This function is used to start fullscreen mode
+ * 
+ * @param {Element} elem - The div container in which the camvas,... is placed 
+ */
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+    }
+}
 
 
-// function changeToExitText() {
-//     document.getElementById('fullscreen-text').innerHTML = 'Press &lt;ENTER&gt; or &lt;ESC&gt; to exit Fullscreen mode';
-// }
-
-
-/* View in fullscreen */
-// function openFullscreen(elem) {
-//     if (elem.requestFullscreen) {
-//       elem.requestFullscreen();
-//     } else if (elem.webkitRequestFullscreen) { /* Safari */
-//       elem.webkitRequestFullscreen();
-//     } else if (elem.msRequestFullscreen) { /* IE11 */
-//       elem.msRequestFullscreen();
-//     }
-//   }
-
-
-// /* Close fullscreen */
-// function closeFullscreen() {
-//     if (document.exitFullscreen) {
-//       document.exitFullscreen();
-//     } else if (document.webkitExitFullscreen) { /* Safari */
-//       document.webkitExitFullscreen();
-//     } else if (document.msExitFullscreen) { /* IE11 */
-//       document.msExitFullscreen();
-//     }
-//   }  
+/**
+ * This function is used to exit the fullscreen mode
+ */
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }   
+}  
 
 
 /**

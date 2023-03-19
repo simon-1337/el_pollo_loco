@@ -39,12 +39,13 @@
     <div class="screen-to-small">
         Please play on a bigger screen or turn your Smartphone!
     </div>
-    <div id="loading-screen" class="loading-screen">
-        <img src="img/6_salsa_bottle/salsa_bottle.png">
-    </div>
+
     <div id="fullscreen">
+        <div id="loading-screen" class="loading-screen">
+            <img src="img/6_salsa_bottle/salsa_bottle.png">
+        </div>
         <h1 class="headline">El Pollo Loco</h1>
-        <div class="relative"> <!--GAME WRAPPER-->
+        <div id="game-wrapper" class="relative game-wrapper"> <!--GAME WRAPPER-->
             <div id="help-screen" class="d-none">
                 <button class="close-btn" onclick="closeHelp()">X</button>
                 <div class="help-screen-child">
@@ -86,7 +87,7 @@
             </div>
             <canvas id="canvas" width="720" height="480"></canvas>
         </div>
-        <!-- <h2 id="fullscreen-text">Press &lt;ENTER&gt; to OPEN/CLOSE Fullscreen mode</h2> -->
+      <h2 id="fullscreen-text">Press &lt;ENTER&gt; to open/close in Fullscreen mode</h2>
     </div>
 
 
