@@ -13,6 +13,7 @@ class Character extends MoveableObject {
     bottleStorage = 0;
     coinStorage = 0;
     idleTime = 0;
+    immune = false;
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',

@@ -184,15 +184,27 @@ class World {
             if (this.character.isColliding(enemy) && !enemy.isDead()) {
                 if (this.characterIsFallingDown() && !(enemy instanceof Endboss)) {                        
                     this.damageEnemy(enemy, index);
+                    this.setCharacterToImmune();
                     this.character.speedY = 15;
                     this.jump_on_enemy_sound.currentTime = 0;
                     this.jump_on_enemy_sound.play();
-                } else {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
+                } else if (!this.character.immune) {
+                    this.character.hit();
+                    this.healthBar.setPercentage(this.character.energy);
                 }
             }
         });
+    }
+
+
+    /**
+     * This function is used to set the character immune against chicken damage for a short time
+     */
+    setCharacterToImmune() {
+        this.character.immune = true;
+        setTimeout(() => {
+            this.character.immune = false;
+        }, 125);
     }
 
 
