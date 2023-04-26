@@ -65,7 +65,7 @@ class ThrowableObject extends MoveableObject {
     throwLeft() {
         setInterval(() => {
             if (!this.destroyed) {
-                this.x -= 10;
+                this.x -= 8;
             } else {
                 this.x -= 0;
             }
@@ -79,7 +79,7 @@ class ThrowableObject extends MoveableObject {
     throwRight() {
         setInterval(() => {
             if (!this.destroyed) {
-                this.x += 10;
+                this.x += 8;
             } else {
                 this.x += 0;
             }

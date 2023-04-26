@@ -80,7 +80,7 @@ class Endboss extends MoveableObject {
         setInterval(() => {
             if (this.energy <= 200) {
                 this.rageMode = true;
-                this.speed = 30;
+                this.speed = 20;
             }
         }, 1000/60);
     }

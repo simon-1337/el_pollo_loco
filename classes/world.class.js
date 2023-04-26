@@ -23,6 +23,7 @@ class World {
     collect_bottle_sound = new Audio ('audio/bottle-collect.mp3');
     jump_on_enemy_sound = new Audio ('audio/hit.mp3');
     bottle_crashes = new Audio ('audio/bottle-crashes.mp3');
+    bg_music = new Audio ('audio/background.mp3');
     lastThrow = 0;
     
     
@@ -56,6 +57,8 @@ class World {
         this.character.animate();
         this.level = level1;
         this.endboss = this.level.enemies[this.level.enemies.length - 1];
+        this.bg_music.loop = true;
+        this.bg_music.play()
     }
 
 
@@ -68,6 +71,7 @@ class World {
         this.collect_bottle_sound.muted = true;
         this.jump_on_enemy_sound.muted =true;
         this.bottle_crashes.muted = true;
+        this.bg_music.muted = true;
         this.character.walking_sound.muted = true;
         this.character.dying_sound.muted = true;
         this.character.hurting_sound.muted = true;
@@ -84,6 +88,7 @@ class World {
         this.collect_bottle_sound.muted = false;
         this.jump_on_enemy_sound.muted =false;
         this.bottle_crashes.muted = false;
+        this.bg_music.muted = false;
         this.character.walking_sound.muted = false;
         this.character.dying_sound.muted = false;
         this.character.hurting_sound.muted = false;
@@ -292,6 +297,7 @@ class World {
         if (this.character.isDead()) {
             stopIntervals()
             this.character.pauseSounds();
+            this.bg_music.pause();
             setTimeout(() => {
                 gameOver();
                 this.gameLost = true;
@@ -311,6 +317,7 @@ class World {
                     gameOver();
                     stopIntervals()
                     this.character.pauseSounds();
+                    this.bg_music.pause();
                     this.gameWon = true;
                     stopAllIntervals();
                     this.playWinnerMusic();
